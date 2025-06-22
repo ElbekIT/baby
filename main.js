@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, push, onChildAdded, get, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set, push, onChildAdded, get, remove, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvBcALAIQeURuULMwrIuMep-A67y0pnaw",
@@ -71,7 +71,7 @@ window.sendMessage = function () {
 window.toggleDeleteBox = function () {
   const box = document.getElementById("deleteBox");
   box.style.display = box.style.display === "block" ? "none" : "block";
-}
+};
 
 window.deleteAccount = function () {
   const confirmDelete = confirm("Akkauntingizni o‘chirmoqchimisiz?");
@@ -80,8 +80,26 @@ window.deleteAccount = function () {
     localStorage.removeItem("user");
     window.location.href = "register.html";
   });
-}
+};
 
 function generateChatId(phone1, phone2) {
   return [phone1, phone2].sort().join("_");
 }
+
+window.showSearchBox = function () {
+  document.getElementById("searchBox").style.display = "block";
+};
+
+window.searchUser = function () {
+  const phone = document.getElementById("searchPhone").value;
+  if (!phone) return;
+  const searchResult = document.getElementById("searchResult");
+  get(child(ref(db), `users/${phone}`)).then(snapshot => {
+    if (snapshot.exists()) {
+      const name = snapshot.val().name;
+      searchResult.innerHTML = `<p><strong>${name}</strong> (${phone})</p><button onclick="selectUser('${phone}')">Message</button>`;
+    } else {
+      searchResult.innerHTML = "<p>Foydalanuvchi topilmadi.</p>";
+    }
+  });
+};

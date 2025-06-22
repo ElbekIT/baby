@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
@@ -20,6 +21,7 @@
     .left { background: #f8bbd0; align-self: flex-start; }
     .user-item { padding: 5px; cursor: pointer; border-bottom: 1px solid #ccc; }
     .user-item:hover { background: #d3d3d3; }
+    #searchBox { display: none; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 999; }
   </style>
 </head>
 <body>
@@ -30,6 +32,9 @@
   </script>
   <header>
     <div>Baby Chat</div>
+    <div>
+      <button onclick="showSearchBox()">Qidirish</button>
+    </div>
     <div id="username" onclick="toggleDeleteBox()">
       Ism
       <div id="deleteBox">
@@ -47,6 +52,13 @@
         <button onclick="sendMessage()">Yuborish</button>
       </div>
     </div>
+  </div>
+
+  <div id="searchBox">
+    <h3>Tanishingizning raqamini yozing</h3>
+    <input type="text" id="searchPhone" placeholder="998901234567" style="width:100%; padding:10px;" />
+    <button onclick="searchUser()">Qidirish</button>
+    <div id="searchResult" style="margin-top:10px;"></div>
   </div>
 
   <script type="module" src="main.js"></script>
