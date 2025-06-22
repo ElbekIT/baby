@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8">
@@ -24,6 +23,11 @@
   </style>
 </head>
 <body>
+  <script>
+    if (!localStorage.getItem("user")) {
+      window.location.href = "register.html";
+    }
+  </script>
   <header>
     <div>Baby Chat</div>
     <div id="username" onclick="toggleDeleteBox()">
